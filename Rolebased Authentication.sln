@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28606.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rolebased Authentication", "Rolebased Authentication\Rolebased Authentication.csproj", "{88A7A4ED-6A68-4F88-95A7-C50F7192C7BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rolebased Authentication", "Rolebased Authentication\Rolebased Authentication.csproj", "{88A7A4ED-6A68-4F88-95A7-C50F7192C7BA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Rolebased-Authorization.Repository", "Rolebased-Authorization.Repository\Rolebased-Authorization.Repository.csproj", "{740E9B1F-71BA-4115-B881-821BB48E9D7F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{88A7A4ED-6A68-4F88-95A7-C50F7192C7BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88A7A4ED-6A68-4F88-95A7-C50F7192C7BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88A7A4ED-6A68-4F88-95A7-C50F7192C7BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{740E9B1F-71BA-4115-B881-821BB48E9D7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{740E9B1F-71BA-4115-B881-821BB48E9D7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{740E9B1F-71BA-4115-B881-821BB48E9D7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{740E9B1F-71BA-4115-B881-821BB48E9D7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
