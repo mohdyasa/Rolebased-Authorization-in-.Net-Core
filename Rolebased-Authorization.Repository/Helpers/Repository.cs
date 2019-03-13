@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Rolebased_Authorization.Repository.Helpers.Interfaces;
+using Rolebased_Authorization.Repository.Models;
 using Rolebased_Authorization.Repository.Persistance;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Rolebased_Authorization.Repository.Helpers
 {
@@ -15,10 +17,7 @@ namespace Rolebased_Authorization.Repository.Helpers
         {
             _unitOfWork = unitOfWork;
         }
-        public void Add(T entity)
-        {
-            _unitOfWork.Context.Set<T>().Add(entity);
-        }
+        public void Add(T entity) => _unitOfWork.Context.Set<T>().Add(entity);
 
         public void Delete(T entity)
         {

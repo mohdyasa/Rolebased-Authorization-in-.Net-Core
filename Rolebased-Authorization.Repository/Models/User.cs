@@ -9,11 +9,20 @@ namespace Rolebased_Authorization.Repository.Models
     {
         [Key]
         public int Id { get; set; }
+
         public string Name { get; set; }
-        [MaxLength(15, ErrorMessage ="Max 15 characters are allowed.")]
+
+        [MaxLength(15, ErrorMessage = "Max 15 characters are allowed.")]
         public string Username { get; set; }
+
         [EmailAddress]
         public string Email { get; set; }
+
+        public string Password { get; set; }
+
+        public string Role { get; set; }
+
+        public string Token { get; set; }
 
     }
 }

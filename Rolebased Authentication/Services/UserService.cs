@@ -4,39 +4,40 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using WebApi.Entities;
+using Rolebased_Authorization.Repository.Helpers;
+using Rolebased_Authorization.Repository.Helpers.Interfaces;
+using Rolebased_Authorization.Repository.Models;
 using WebApi.Helpers;
 
 namespace WebApi.Services
 {
     public interface IUserService
     {
-        User Authenticate(string username, string password);
+        //User Authenticate(string username, string password);
         IEnumerable<User> GetAll();
         User GetById(int id);
     }
 
-    public class UserService : IUserService
+    public class UserService 
     {
-        // users hardcoded for simplicity, store in a db with hashed passwords in production applications
-        private List<User> _users = new List<User>
-        { 
-            new User { Id = 1, FirstName = "Admin", LastName = "User", Username = "admin", Password = "admin", Role = Role.Admin },
-            new User { Id = 2, FirstName = "Normal", LastName = "User", Username = "user", Password = "user", Role = Role.User } 
-        };
-
         private readonly AppSettings _appSettings;
-
-        public UserService(IOptions<AppSettings> appSettings)
+        private readonly IUnitOfWork _uow;
+        private readonly IRepository<User> _repo;
+        private readonly IAuthRepository _authRepository;
+        public UserService(IOptions<AppSettings> appSettings, IUnitOfWork unit, IRepository<User> repo, IAuthRepository authRepository)
         {
             _appSettings = appSettings.Value;
+            _uow = unit;
+            _repo = repo;
+            _authRepository = authRepository;
         }
 
-        public User Authenticate(string username, string password)
+        public async Task<User> Authenticate(string username, string password)
         {
-            var user = _users.SingleOrDefault(x => x.Username == username && x.Password == password);
+            var user = await _authRepository.Login(username, password);
 
             // return null if user not found
             if (user == null)
@@ -50,7 +51,7 @@ namespace WebApi.Services
                 Subject = new ClaimsIdentity(new Claim[] 
                 {
                     new Claim(ClaimTypes.Name, user.Id.ToString()),
-                    new Claim(ClaimTypes.Role, user.Role)
+                     new Claim(ClaimTypes.Role, user.Role)
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -64,23 +65,6 @@ namespace WebApi.Services
             return user;
         }
 
-        public IEnumerable<User> GetAll()
-        {
-            // return users without passwords
-            return _users.Select(x => {
-                x.Password = null;
-                return x;
-            });
-        }
-
-        public User GetById(int id) {
-            var user = _users.FirstOrDefault(x => x.Id == id);
-
-            // return user without password
-            if (user != null) 
-                user.Password = null;
-
-            return user;
-        }
+       
     }
 }

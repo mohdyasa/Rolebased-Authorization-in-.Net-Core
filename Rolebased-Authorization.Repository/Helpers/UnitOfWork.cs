@@ -14,15 +14,10 @@ namespace Rolebased_Authorization.Repository.Helpers
         {
             Context = context;
         }
-        public void Commit()
-        {
-            Context.SaveChanges();
-        }
 
-        public void Dispose()
-        {
-            Context.Dispose();
+        public void Commit() => Context.SaveChanges();
 
-        }
+        public void Dispose() => Context.Dispose();
+       
     }
 }
